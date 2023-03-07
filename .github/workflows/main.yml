@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Deploy to Azure - dsa-ctvi-backend-webapp
+name: dsa-ctvi-backend-webapp
 
 on:
   push:
@@ -26,6 +26,7 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
@@ -36,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'Production'
+      name: 'production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -50,6 +51,6 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'dsa-ctvi-backend-webapp'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D162EA6934934E0F87BB8BE934B610C4 }}
+          slot-name: 'production'
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_6b5134f9bcfa49e690328ef625d1f449 }}
           package: .
